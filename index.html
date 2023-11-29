@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stilos.css">
+    <title>VETERINARIA  PET HOUCE</title>
+    
+</head>
+<body>
+
+    <h1>VETERINARIA  PET HOUCE</h1>
+
+    <form id="vetForm">
+        <label for="petName">Nombre de la Mascota:</label>
+        <input type="text" id="petName" required>
+
+        <label for="ownerName">Nombre del Dueño:</label>
+        <input type="text" id="ownerName" required>
+
+        <label for="appointmentDate">Fecha de la Cita:</label>
+        <input type="date" id="appointmentDate" required>
+
+        <label for="description">Descripción de la Cita:</label>
+        <textarea id="description" rows="4" required></textarea>
+
+        <button type="button" onclick="addAppointment()">Agregar Cita</button>
+    </form>
+
+    <h2>Lista de Citas</h2>
+    <table id="appointmentTable">
+        <thead>
+            <tr>
+                <th>Mascota</th>
+                <th>Dueño</th>
+                <th>Fecha de Cita</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentList">
+            <!-- Aquí se mostrarán las citas -->
+        </tbody>
+    </table>
+
+    <script>
+        function addAppointment() {
+            var petName = document.getElementById('petName').value;
+            var ownerName = document.getElementById('ownerName').value;
+            var appointmentDate = document.getElementById('appointmentDate').value;
+            var description = document.getElementById('description').value;
+
+            if (petName === '' || ownerName === '' || appointmentDate === '' || description === '') {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+
+            var table = document.getElementById('appointmentTable').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+
+            cell1.innerHTML = petName;
+            cell2.innerHTML = ownerName;
+            cell3.innerHTML = appointmentDate;
+            cell4.innerHTML = description;
+            cell5.innerHTML = '<button onclick="deleteRow(this)">Eliminar</button>';
+
+            document.getElementById('vetForm').reset();
+        }
+
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+
+</body>
+</html>
